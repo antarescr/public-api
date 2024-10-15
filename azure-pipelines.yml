@@ -7,9 +7,20 @@ resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
-  imageName: 'public-api'
-  vmImageName: ubuntu-latest
+  - group: CICD
+  - name: app_var
+    value: $[variables.appVariable]
+
+parameters:
+  - name: tag
+    default: "$(Build.BuildId)"
+  - name: imageName
+    default: "public-api"
+  
+  #Valores anteriores
+  #tag: '$(Build.BuildId)'
+  #imageName: 'public-api'
+  #vmImageName: ubuntu-latest
 
 stages: #En Github actions esto se llama jobs
 - stage: Build
@@ -21,11 +32,19 @@ stages: #En Github actions esto se llama jobs
     #  vmImage: $(vmImageName)
 
     steps:
+    - script: |
+        echo "var=$(app_var)"
     - task: Docker@2
       displayName: Build an image
       inputs:
-        repository: $(imageName)
+        repository: ${{ parameters.imageName }}
         command: build
-        dockerfile: '**/qa.dockerfile'
-        tags: |
-          $(tag)
+        dockerfile: "**/qa.dockerfile"
+        tags: ${{ parameters.tag }}
+        arguments: '--build-arg APP_ENV=$(app_var)'
+        
+        #repository: $(imageName)
+        #command: build
+        #dockerfile: '**/qa.dockerfile'
+        #tags: |
+        #  $(tag)
