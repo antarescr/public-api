@@ -39,6 +39,7 @@ stages: #En Github actions esto se llama jobs
       inputs:
         repository: ${{ parameters.imageName }}
         command: build
+        containerRegistry: 'registryConnection'
         dockerfile: "**/qa.dockerfile"
         tags: ${{ parameters.tag }}
         arguments: '--build-arg APP_ENV="$(app_var)"'
@@ -48,3 +49,12 @@ stages: #En Github actions esto se llama jobs
         #dockerfile: '**/qa.dockerfile'
         #tags: |
         #  $(tag)
+
+    - task: Docker@2
+      displayName: 'Push Docker Image'
+      inputs:
+        command: 'push'
+        containerRegistry: 'registryConnection'
+        repository: ${{ parameters.imageName }}
+        tags: |
+          ${{ parameters.tag }}
