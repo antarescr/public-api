@@ -1,6 +1,8 @@
 trigger:
 - main
 
+pool: local-agent
+
 resources:
 - repo: self
 
