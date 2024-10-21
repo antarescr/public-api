@@ -42,7 +42,7 @@ stages: #En Github actions esto se llama jobs
         containerRegistry: 'registryConnection'
         dockerfile: "**/qa.dockerfile"
         tags: ${{ parameters.tag }}
-        arguments: '--build-arg APP_ENV="$(app_var)"'
+        arguments: '--build-arg APP_ENV=$(app_var)'
         
         #repository: $(imageName)
         #command: build
