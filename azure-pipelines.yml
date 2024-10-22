@@ -75,7 +75,7 @@ stages: #En Github actions esto se llama jobs
           #Nombre de conector creado en ADS para pegar con webApps
           azureSubscription: 'appDeployConnection'
           imageToDeploy: acrappsJorge.azurecr.io/${{ parameters.imageName }}:$(Build.BuildId)
-          containerAppName: 'app-public-api-jorge' # NOMBRE DEL CONTAINER APP
+          containerAppName: 'app-public-app' # NOMBRE DEL CONTAINER APP
           resourceGroup: rg-jorge
           acrUsername: $(arcUser)
           acrPassword: $(arcPWD)
