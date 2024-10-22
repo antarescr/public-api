@@ -58,5 +58,9 @@ stages: #En Github actions esto se llama jobs
         repository: ${{ parameters.imageName }}
         tags: |
           ${{ parameters.tag }}
-
+  - job: Deploy
+    displayName: Deploy
+    dependsdOn: Build
+    steps:
+      - script: echo "Deploying"
 
