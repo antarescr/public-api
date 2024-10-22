@@ -60,7 +60,7 @@ stages: #En Github actions esto se llama jobs
           ${{ parameters.tag }}
   - job: Deploy
     displayName: Deploy
-    dependsdOn: Build
+    dependsOn: Build
     steps:
       - script: echo "Deploying"
 
