@@ -30,6 +30,7 @@ process.on('unhandledRejection', err => {
 // health checks
 const router = express.Router()
 router.get('/', (req, res) => {
+  console.log('test Jorge', config.APP_VERSION)
   logger.info(`[${config.NODE_ENV}] App: ${config.APP_NAME} v${config.APP_VERSION}. Session: ${sticky} on Port ${config.NODE_PORT}`)
   res.send({ app: config.APP_NAME, env: config.NODE_ENV, port: config.NODE_PORT, version: config.APP_VERSION, sticky })
 })
