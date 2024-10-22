@@ -79,5 +79,3 @@ stages: #En Github actions esto se llama jobs
           resourceGroup: rg-jorge
           acrUsername: $(arcUser)
           acrPassword: $(arcPWD)
-
-
