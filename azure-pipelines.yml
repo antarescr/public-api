@@ -10,6 +10,14 @@ variables:
   - group: CICD
   - name: app_var
     value: $[variables.appVariable]
+  
+  - group: CICD
+  - name: arcUser
+    value: $[variables.acrUsername]
+  
+  - group: CICD
+  - name: arcPWD
+    value: $[variables.acrPassword]
 
 parameters:
   - name: tag
@@ -62,5 +70,14 @@ stages: #En Github actions esto se llama jobs
     displayName: Deploy
     dependsOn: Build
     steps:
-      - script: echo "Deploying"
+      - task: AzureContainerApps@1
+        inputs:
+          #Nombre de conector creado en ADS para pegar con webApps
+          azureSubscription: 'appDeployConnection'
+          imageToDeploy: acrappsJorge.azurecr.io/${{ parameters.imageName }}:$(Build.BuildId)
+          containerAppName: 'app-public-api-jorge' # NOMBRE DEL CONTAINER APP
+          resourceGroup: rg-jorge
+          acrUsername: $(arcUser)
+          acrPassword: $(arcPWD)
+
 
